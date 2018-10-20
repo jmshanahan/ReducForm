@@ -1,4 +1,5 @@
 import React from "react";
+import { Field } from "redux-form";
 // import ReactJson from "react-json-view";
 import cx from "classnames";
 const getValidityClassName = meta => {
@@ -27,7 +28,7 @@ export const customInput = props => {
       )}
     >
       <label>{label}</label>
-      <input {...props.input} type={props.type} />
+      <input {...props.input} type={props.type} autoFocus={props.autoFocus} />
       {meta.error &&
         meta.touched &&
         !meta.active && (
@@ -47,3 +48,25 @@ export const customSelect = props => {
     </div>
   );
 };
+
+export const discounts = ({ fields }) => (
+  <div className="custom-field-array-container">
+    {fields.map((code, index) => (
+      <div key={index} className="field-array-item">
+        <Field
+          name={code}
+          type="text"
+          component={customInput}
+          label={`Discount Code #${index + 1}`}
+          autoFocus
+        />
+        <button type="button" onClick={() => fields.remove(index)}>
+          &times;
+        </button>
+      </div>
+    ))}
+    <button type="button" onClick={() => fields.push()}>
+      Add {!fields.length ? "Discount Code(s)" : "Another"}
+    </button>
+  </div>
+);
