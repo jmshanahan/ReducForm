@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { SubmissionError } from "redux-form";
 import RegisterForm from "./components/RegisterForm";
 
 class RegisterFormContainer extends Component {
